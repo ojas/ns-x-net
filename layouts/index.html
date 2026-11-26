@@ -1,0 +1,1 @@
+{{ define "main" }}<p class="eyebrow">THE INDEPENDENT NSX ARCHIVE</p><h1>History. Engineering. Culture.</h1>{{ .Content }}<div class="sections">{{ range site.Sections }}<a href="{{ .RelPermalink }}"><h2>{{ .Title }}</h2><p>{{ .Description }}</p></a>{{ end }}</div>{{ end }}
