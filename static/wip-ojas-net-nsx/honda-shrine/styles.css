@@ -1,0 +1,126 @@
+/* Original artwork lives in ../mirror/nsx-r; all four pages share this layout. */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #c00;
+  color: #000;
+  font: 12px/1.25 Verdana, sans-serif;
+}
+img { max-width: 100%; height: auto; vertical-align: middle; }
+a { color: inherit; }
+a:focus-visible { outline: 2px solid #c00; outline-offset: 4px; }
+h1, h2, h3, h4, p, figure { margin: 0; }
+h2 { margin: 15px 0; color: #eb0000; font-size: 14px; }
+h3 { margin: 15px 0 5px; padding-bottom: 5px; border-bottom: 1px solid #eb0000; color: #eb0000; font-size: 12px; }
+p { margin-bottom: 12px; }
+figure { margin: 15px 0; text-align: center; }
+figcaption { margin: 5px 0; text-align: left; }
+.page { width: min(100%, 700px); min-height: 100vh; margin: auto; padding: 18px 67px 24px; background: #fff; }
+.masthead { display: flex; align-items: start; justify-content: space-between; padding-bottom: 2px; border-bottom: 2px solid #c00; }
+.masthead h1 { font: bold 20px/20px Arial, sans-serif; letter-spacing: 3px; }
+.masthead img { display: block; }
+.section-nav { display: flex; justify-content: end; gap: 7px; margin-top: 6px; }
+.section-nav a { flex: 0 1 120px; min-width: 0; }
+
+/* Text links recreate the archived buttons, including their corner brackets. */
+.nav-link {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 24px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+  font: bold 11px/1.2 Arial, sans-serif;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.nav-link::before, .nav-link::after {
+  content: "";
+  position: absolute;
+  inset: -1px -1px auto;
+  height: 9px;
+  border-inline: 2px solid #000;
+  background: linear-gradient(to right, #000 8px, transparent 8px calc(100% - 8px), #000 0) top / 100% 2px no-repeat;
+  pointer-events: none;
+}
+.nav-link::after { inset: auto -1px -1px; transform: rotate(180deg); }
+.nav-link[aria-current="page"],
+.nav-link:is(:hover, :focus-visible) { background: #ccc; color: #fff; }
+/* Match the archive: temporarily dim the current tab when another is active. */
+.section-nav:has(a:not([aria-current]):is(:hover, :focus-visible)) [aria-current] { background: #fff; color: #000; }
+.return { display: flex; justify-content: end; margin-top: 25px; }
+.skip-link { position: absolute; top: 8px; left: 8px; z-index: 1; padding: 8px; background: #fff; transform: translateY(-200%); }
+.skip-link:focus { transform: none; }
+
+.home { padding: 36px 60px 24px; }
+.home-grid { display: grid; grid-template-columns: 304fr 255fr; gap: 10px; padding-right: 11px; }
+.home-menu { padding-top: 20px; }
+.home-menu h1 { line-height: 0; }
+.tagline { margin: 10px 0 76px; }
+.home-menu nav { display: grid; gap: 45px; }
+.home-menu .nav-link { min-height: 44px; font-size: 14px; letter-spacing: 3px; }
+.press-date { margin: 25px 0 0; text-align: center; }
+
+.columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 15px; }
+.columns figure:first-child { margin-top: 0; }
+.profile { grid-template-columns: 120px minmax(0, 1fr); gap: 20px; margin: 15px 0; }
+.profile h2 { margin-top: 0; }
+.balance { grid-template-columns: minmax(0, 351fr) minmax(0, 200fr); }
+.balance > :last-child { align-self: center; }
+.callout { margin: 20px 0; padding: 5px; border: 2px solid #c6393d; }
+.callout h3 { margin-top: 0; border: 0; }
+.lift { grid-template-columns: minmax(0, 200fr) minmax(0, 337fr); }
+.carbon, .engine { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+.carbon > :last-child { padding-top: 45px; }
+.carbon figure + figure { margin-top: 30px; }
+.suspension { grid-template-columns: minmax(0, 233fr) minmax(0, 318fr); align-items: center; margin: 20px 0; }
+.advances { display: grid; grid-template-columns: 503fr 41fr; max-width: 544px; }
+.advances-flow img { display: block; }
+.advances-flow img:nth-child(2), .advances-flow img:nth-child(7) { margin-top: 6px; }
+.advances-flow img:nth-child(3) { margin: 10px auto; width: 3.58%; }
+.advances-flow img:nth-child(n+5):not(:nth-child(7)) { margin-top: 38px; }
+.advances-bracket { width: 100%; height: 100%; }
+.marker { display: inline; width: 9px; height: 9px; }
+.equipment { display: grid; grid-template-columns: 150px minmax(0, 1fr); margin: 15px 0; }
+.equipment dt, .equipment dd { margin: 0; padding: 8px 0; border-top: 1px solid #eb0000; }
+.equipment dd p { margin: 0; }
+.specifications { width: 100%; border-collapse: collapse; margin: 15px 0; }
+.specifications caption { padding: 5px; text-align: right; }
+.specifications th, .specifications td { padding: 3px; border: 1px solid #888; font-weight: normal; }
+.specifications th { text-align: left; vertical-align: top; }
+.specifications td { text-align: center; }
+
+.timeline-headings, .timeline-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; padding-left: 30px; }
+.timeline-headings h2 { margin: 0 0 10px; padding: 5px; background: #d03333; color: #fff; text-align: center; }
+.timeline .year { margin: 10px 0 5px; padding: 0; border: 0; background: url("/nsx/mirror/nsx-r/history/image/13_p01.gif") repeat-x; line-height: 12px; }
+.timeline h3:not(.year) { margin: 0; padding: 0; border: 0; color: inherit; }
+.timeline p { margin: 0; }
+.timeline-row .year { margin-left: -30px; }
+.mobile-label { display: none; }
+
+@media (max-width: 620px) {
+  .page { padding: 18px 20px 24px; }
+  .home { padding-top: 30px; }
+  .home-grid { padding-right: 0; }
+  .home-menu { padding-top: 5%; }
+  .tagline { margin-bottom: 20%; }
+  .home-menu nav { gap: 20px; }
+  .columns { grid-template-columns: 1fr; }
+  .profile { grid-template-columns: 120px minmax(0, 1fr); }
+  .carbon > :last-child { padding-top: 0; }
+  .advances-flow img:nth-child(n+5):not(:nth-child(7)) { margin-top: 7%; }
+  .equipment { grid-template-columns: 100px minmax(0, 1fr); }
+  .timeline-headings { display: none; }
+  .timeline-row { grid-template-columns: 1fr; gap: 12px; padding-left: 20px; }
+  .timeline-row > div:empty { display: none; }
+  .timeline-row .year { margin-left: 0; }
+  .timeline .mobile-label { display: block; margin-bottom: 5px; color: #c00; font-weight: bold; }
+}
+@media (max-width: 380px) {
+  .page { padding-inline: 12px; }
+  .profile { grid-template-columns: 1fr; }
+  .equipment { grid-template-columns: 1fr; }
+  .equipment dt { font-weight: bold; }
+  .equipment dd { border: 0; }
+}
