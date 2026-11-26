@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+"""Stage approved public media in Cloudflare R2 using rclone. Dry-run by default."""
+import argparse
+import os
+from pathlib import Path
+import subprocess
+import sys
+from urllib.parse import quote
+
+def run(args):
+    print("+", " ".join(args), flush=True)
+    return subprocess.run(args, check=True)
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("source", type=Path, help="Existing local file or directory")
+    p.add_argument("destination", help="Object key or prefix inside the public bucket")
+    p.add_argument("--remote", default=os.environ.get("NSX_R2_REMOTE", "nsx-r2"))
+    p.add_argument("--bucket", default=os.environ.get("NSX_R2_BUCKET", "ns-x-net-public"))
+    p.add_argument("--public-base", default=os.environ.get("NSX_MEDIA_BASE", "https://media.ns-x.net"))
+    p.add_argument("--execute", action="store_true", help="Actually upload (default is dry-run)")
+    p.add_argument("--approved", action="store_true", help="Confirm provenance, rights and privacy review")
+    args = p.parse_args()
+    source = args.source.expanduser().resolve()
+    if not source.exists() or not (source.is_file() or source.is_dir()):
+        p.error("source must be an existing regular file or directory")
+    parts = args.destination.strip("/").split("/")
+    if not args.destination or any(x in ("", ".", "..") for x in parts) or "\\" in args.destination:
+        p.error("destination must be a clean relative object key/prefix")
+    if not args.bucket or "/" in args.bucket or ":" in args.bucket:
+        p.error("invalid bucket name")
+    if not args.remote or ":" in args.remote or "/" in args.remote:
+        p.error("invalid rclone remote name")
+    if args.execute and not args.approved:
+        p.error("--execute requires --approved; review publication rights and private data first")
+    if not args.public_base.startswith("https://"):
+        p.error("public base URL must start with https://")
+    target = f"{args.remote}:{args.bucket}/" + "/".join(parts)
+    base = args.public_base.rstrip("/")
+    if source.is_file():
+        command = ["rclone", "copyto", str(source), target, "--progress"]
+        check_source, check_target = str(source.parent), f"{args.remote}:{args.bucket}/" + "/".join(parts[:-1])
+        # Verify a single object using remote size, not S3 ETags (multipart ETags differ).
+        verify = ["rclone", "lsjson", target, "--stat"]
+        urls = [base + "/" + quote("/".join(parts), safe="/")]
+    else:
+        command = ["rclone", "copy", str(source), target, "--progress"]
+        verify = ["rclone", "check", str(source), target, "--one-way", "--size-only"]
+        urls = [base + "/" + quote("/".join(parts + [str(f.relative_to(source)).replace(os.sep, "/")]), safe="/")
+                for f in sorted(source.rglob("*")) if f.is_file()]
+    print("Mode:", "UPLOAD" if args.execute else "DRY RUN")
+    print("Source:", source)
+    print("Destination:", target)
+    if not args.execute:
+        command.append("--dry-run")
+    try:
+        run(command)
+        if args.execute:
+            run(verify)
+    except FileNotFoundError:
+        sys.exit("rclone is not installed or not on PATH")
+    except subprocess.CalledProcessError as e:
+        sys.exit(f"rclone failed (exit {e.returncode}); inspect remote before retrying")
+    print("\nPublic URLs (valid only after upload and custom domain setup):")
+    for url in urls:
+        print(url)
+    if not args.execute:
+        print("\nNothing uploaded. After rights review, rerun with --execute --approved.")
+
+if __name__ == "__main__":
+    main()
