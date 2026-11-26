@@ -12,4 +12,4 @@ An extraordinary car, with a community that makes the experience even better. He
 
 Ask questions. Share what you learn. Most of all, get out and enjoy the car—the friendships grow from there.
 
-— Ojas Patel · V10 Zen
+![Handwritten signature](/images/welcome-signature.svg)
