@@ -1,10 +1,15 @@
 ---
-title: "Welcome, NSX Owners"
-description: "A starting point for new Honda and Acura NSX owners."
+title: "Welcome to NSX ownership."
+linkTitle: Welcome
+description: "A personal introduction to the NSX community."
 ---
 
-Welcome to the NS-X.net community and independent archive.
+*A personal introduction*
 
-The owner welcome guide is being transferred to this site. In the meantime, you can [view the existing owner welcome guide](https://works-preview.v10zen.com/nsx-welcome/).
+An extraordinary car, with a community that makes the experience even better. Here’s where I’d start:
 
-Explore the [library](/library/), [engineering](/engineering/), and [community](/community/) collections.
+[Explore the NSX community →](/community/)
+
+Ask questions. Share what you learn. Most of all, get out and enjoy the car—the friendships grow from there.
+
+— Ojas Patel · V10 Zen
