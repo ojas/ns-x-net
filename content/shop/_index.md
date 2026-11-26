@@ -3,6 +3,7 @@ title: "The Gift Shop"
 linkTitle: "Shop"
 description: "A considered collection of objects, books and everyday essentials."
 weight: 95
+unlisted: true
 intro: "Objects, books and essentials inspired by the places, people and culture that made the NSX possible."
 status: "We are taking our time to find the right things. Nothing is offered for sale just yet."
 collections:
