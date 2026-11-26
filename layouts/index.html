@@ -1,1 +1,20 @@
-{{ define "main" }}<p class="eyebrow">THE INDEPENDENT NSX ARCHIVE</p><h1>History. Engineering. Culture.</h1>{{ .Content }}<div class="sections">{{ range site.Sections }}<a href="{{ .RelPermalink }}"><h2>{{ .Title }}</h2><p>{{ .Description }}</p></a>{{ end }}</div>{{ end }}
+{{ define "main" }}
+<section class="home-intro">
+  <p class="eyebrow">The independent NSX archive</p>
+  <h1>History. Engineering. Culture.</h1>
+  {{ .Content }}
+</section>
+{{ with site.GetPage "/heritage/nsx-r-honda-worldwide" }}
+<a class="feature" href="{{ .RelPermalink }}">
+  <div class="feature-copy">
+    <p class="eyebrow">From the archive / 2006 capture</p>
+    <h2>Honda Worldwide — NSX-R</h2>
+    <p>Explore Honda's original NSX-R microsite, preserved with its period design, engineering insights and history.</p>
+    <span class="feature-cta">Explore the original archive ↗</span>
+  </div>
+  <img class="feature-image" src="{{ "wip-ojas-net-nsx/mirror/nsx-r/NSX-R/image/nsxr.jpg" | relURL }}" width="304" height="446" alt="NSX-R, from the Honda Worldwide website">
+</a>
+{{ end }}
+<div class="collection-heading"><h2>Explore the collection</h2><span class="index-label">Index / {{ printf "%02d" (len site.Sections) }}</span></div>
+<div class="sections">{{ range $i, $section := site.Sections }}<a href="{{ .RelPermalink }}"><span class="section-number">{{ printf "%02d" (add $i 1) }}</span><h3>{{ .Title }} <span aria-hidden="true">↗</span></h3><p>{{ .Description }}</p></a>{{ end }}</div>
+{{ end }}
