@@ -1,0 +1,5 @@
+name = "ns-x-net"
+compatibility_date = "2026-11-26"
+
+[assets]
+directory = "./public"
