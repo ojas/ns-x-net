@@ -1,0 +1,1 @@
+{{ with site.Data.announcement }}{{ if .enabled }}<aside class="site-announcement" role="status" aria-label="Site announcement"><p>{{ .message }} {{ with .link }}<a href="{{ . | relURL }}">{{ $.Site.Data.announcement.link_text }}</a>{{ end }}</p></aside>{{ end }}{{ end }}
