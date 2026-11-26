@@ -3,4 +3,4 @@ title: Library
 description: Brochures, literature and documents.
 ---
 
-Brochures, literature and documents. Collection in development.
+Digitized brochures, literature and documents from the NSX archive.
