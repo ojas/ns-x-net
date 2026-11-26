@@ -1,0 +1,44 @@
+{{ define "main" }}
+<article class="gift-shop">
+  <section class="shop-hero">
+    <div class="shop-hero-copy">
+      <p class="shop-kicker">The archive shop</p>
+      <h1>A Curated<br>Collection</h1>
+      <p>{{ .Params.intro }}</p>
+    </div>
+    <div class="shop-hero-art" aria-hidden="true">
+      <svg viewBox="0 0 560 330" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="wall" x2="0" y2="1"><stop stop-color="#38342f"/><stop offset="1" stop-color="#151514"/></linearGradient><linearGradient id="desk" x2="1" y2="1"><stop stop-color="#86705b"/><stop offset="1" stop-color="#39302a"/></linearGradient></defs>
+        <rect width="560" height="330" fill="url(#wall)"/>
+        <path d="M0 205L560 177V330H0Z" fill="url(#desk)"/>
+        <path d="M26 232L242 216L340 245L126 265Z" fill="#d9d0bf"/><path d="M26 232V255L126 287V265Z" fill="#a59b8a"/><path d="M126 265L340 245V268L126 287Z" fill="#c5bbaa"/>
+        <path d="M42 202L245 187L324 216L122 235Z" fill="#292827"/><path d="M42 202V220L122 250V235Z" fill="#141414"/><path d="M122 235L324 216V233L122 250Z" fill="#1a1a19"/>
+        <g transform="translate(139 223) skewY(-5)"><text fill="#e9e4dc" font-size="20" font-family="sans-serif" font-weight="bold" letter-spacing="3">NSX<tspan fill="#ba3838">−R</tspan></text></g>
+        <rect x="362" y="177" width="168" height="45" fill="#222"/><path d="M372 170V85H520V170Z" fill="#c4d1d0" fill-opacity=".07" stroke="#b6b8b3" stroke-opacity=".65"/>
+        <path d="M381 158L395 149L414 145L432 129L468 128L485 144L507 148L514 158V168H381Z" fill="#eee9db"/><path d="M437 132H467L480 144H423Z" fill="#4b5150"/><circle cx="408" cy="167" r="9" fill="#222"/><circle cx="488" cy="167" r="9" fill="#222"/><circle cx="408" cy="167" r="4" fill="#a6a5a0"/><circle cx="488" cy="167" r="4" fill="#a6a5a0"/>
+        <path d="M355 260L478 245L539 267L413 285Z" fill="#343332"/><path d="M413 285L539 267V278L413 297L355 272V260Z" fill="#252525"/><path d="M493 251L506 255L442 290L430 292Z" fill="#ad292e"/>
+      </svg>
+    </div>
+  </section>
+  <section class="shop-introduction">
+    <div><p lang="ja" class="shop-japanese">ギフトショップ</p><p class="shop-kicker">The Gift Shop</p></div>
+    <div class="shop-story">{{ .Content }}</div>
+  </section>
+  <section class="shop-collection" aria-label="Collection themes">
+  {{ range $i, $category := .Params.collections }}
+    <article class="shop-category">
+      <div class="shop-object shop-object-{{ $category.id }}" aria-hidden="true">
+        {{ if eq $category.id "books" }}<svg viewBox="0 0 240 126"><path d="M45 35H188V99H45Z" fill="#ad9b82"/><path d="M45 35H188V90H45Z" fill="#ded5c5"/><path d="M54 39H177V85H54Z" fill="none" stroke="#a49b8a"/><text x="116" y="65" text-anchor="middle" font-size="23" font-weight="bold" fill="#242424">NSX</text><path d="M62 73H170" stroke="#b21f2d"/></svg>
+        {{ else if eq $category.id "models" }}<svg viewBox="0 0 240 126"><rect x="28" y="83" width="184" height="20" fill="#242424"/><path d="M40 77L56 66L83 61L104 43H151L176 62L197 65L206 76V86H40Z" fill="#eee9df" stroke="#b5ada1"/><path d="M108 47H149L166 61H93Z" fill="#50565a"/><circle cx="71" cy="85" r="12" fill="#272727"/><circle cx="179" cy="85" r="12" fill="#272727"/><circle cx="71" cy="85" r="5" fill="#b5b5b2"/><circle cx="179" cy="85" r="5" fill="#b5b5b2"/></svg>
+        {{ else if eq $category.id "apparel" }}<svg viewBox="0 0 240 126"><path d="M65 28L94 19Q120 43 146 19L175 28L203 61L176 77L159 61V110H81V61L64 77L37 61Z" fill="#353432"/><path d="M155 63H159V110H155Z" fill="#b21f2d"/><text x="120" y="74" text-anchor="middle" font-size="15" fill="#f3efe8" font-weight="bold">NSX</text></svg>
+        {{ else }}<svg viewBox="0 0 240 126"><circle cx="53" cy="62" r="23" fill="none" stroke="#b2aaa0" stroke-width="6"/><rect x="72" y="49" width="129" height="28" rx="3" fill="#c7c2b9"/><path d="M87 53H195" stroke="#e5e1d8"/><text x="137" y="68" text-anchor="middle" font-size="17" font-weight="bold" fill="#393633">NSX</text></svg>{{ end }}
+      </div>
+      <p class="shop-kicker">Collection / {{ printf "%02d" (add $i 1) }}</p>
+      <h2>{{ $category.title }}</h2>
+      <p>{{ $category.description }}</p>
+    </article>
+  {{ end }}
+  </section>
+  <section class="shop-note"><p class="shop-kicker">A collection in the making</p><p>{{ .Params.status }}</p><a href="{{ "/" | relURL }}">Return to the archive</a></section>
+</article>
+{{ end }}
