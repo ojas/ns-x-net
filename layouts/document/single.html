@@ -1,0 +1,20 @@
+{{ define "main" }}
+<article class="document">
+  <p class="eyebrow"><a href="{{ "/library/" | relURL }}">Library</a> / {{ .Params.category | default "Document" }}</p>
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.description }}<p class="document-lead">{{ . }}</p>{{ end }}
+  {{ with .Params.cover }}<figure class="document-cover"><a href="{{ . }}" target="_blank" rel="noopener"><img src="{{ . }}" alt="Archival image associated with {{ $.Title }}" loading="eager"></a></figure>{{ end }}
+  <div class="document-meta">{{ with .Params.year }}<span>{{ . }}</span>{{ end }}{{ with .Params.category }}<span>{{ . }}</span>{{ end }}{{ with .Params.pages }}<span>{{ len . }} scanned pages</span>{{ end }}</div>
+  {{ .Content }}
+  {{ with .Params.pdf }}<p><a class="document-download" href="{{ . }}" target="_blank" rel="noopener">View original PDF ↗</a></p>{{ end }}
+  {{ with .Params.pages }}
+  <h2>Scanned pages</h2>
+  <div class="document-gallery">
+  {{ range $i, $image := . }}
+    <figure><a href="{{ $image }}" target="_blank" rel="noopener" aria-label="Open page {{ add $i 1 }} full size"><img src="{{ $image }}" alt="Brochure page {{ add $i 1 }}" loading="lazy"></a><figcaption>Page {{ add $i 1 }}</figcaption></figure>
+  {{ end }}
+  </div>
+  {{ end }}
+  {{ with .Params.related_media }}<h2>Related media</h2><ul>{{ range . }}<li><a href="{{ .url }}" target="_blank" rel="noopener">{{ .title }} ↗</a></li>{{ end }}</ul>{{ end }}
+</article>
+{{ end }}
