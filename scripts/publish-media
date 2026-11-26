@@ -7,6 +7,13 @@ import subprocess
 import sys
 from urllib.parse import quote
 
+# Exclude operating-system metadata from both transfers and verification.
+EXCLUDES = ["Thumbs.db", ".DS_Store", "._*"]
+FILTER_ARGS = [arg for pattern in EXCLUDES for arg in ("--exclude", pattern)]
+
+def publishable(path):
+    return not (path.name in ("Thumbs.db", ".DS_Store") or path.name.startswith("._"))
+
 def run(args):
     print("+", " ".join(args), flush=True)
     return subprocess.run(args, check=True)
@@ -37,17 +44,18 @@ def main():
         p.error("public base URL must start with https://")
     target = f"{args.remote}:{args.bucket}/" + "/".join(parts)
     base = args.public_base.rstrip("/")
+    if source.is_file() and not publishable(source):
+        p.error("source is excluded operating-system metadata")
     if source.is_file():
         command = ["rclone", "copyto", str(source), target, "--progress"]
-        check_source, check_target = str(source.parent), f"{args.remote}:{args.bucket}/" + "/".join(parts[:-1])
         # Verify a single object using remote size, not S3 ETags (multipart ETags differ).
         verify = ["rclone", "lsjson", target, "--stat"]
         urls = [base + "/" + quote("/".join(parts), safe="/")]
     else:
-        command = ["rclone", "copy", str(source), target, "--progress"]
-        verify = ["rclone", "check", str(source), target, "--one-way", "--size-only"]
+        command = ["rclone", "copy", str(source), target, "--progress", *FILTER_ARGS]
+        verify = ["rclone", "check", str(source), target, "--one-way", "--size-only", *FILTER_ARGS]
         urls = [base + "/" + quote("/".join(parts + [str(f.relative_to(source)).replace(os.sep, "/")]), safe="/")
-                for f in sorted(source.rglob("*")) if f.is_file()]
+                for f in sorted(source.rglob("*")) if f.is_file() and publishable(f)]
     print("Mode:", "UPLOAD" if args.execute else "DRY RUN")
     print("Source:", source)
     print("Destination:", target)
