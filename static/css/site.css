@@ -22,3 +22,35 @@ footer{border-top:1px solid var(--line);padding:1rem 0;font-size:.73rem;color:va
 @media(max-width:420px){.sections{grid-template-columns:1fr}.feature{grid-template-columns:1fr}.feature-image{max-height:190px}.library-list article{grid-template-columns:1fr}.library-list article img{max-width:240px}}
 
 img[src$="/images/welcome-signature.svg"]{display:block;width:220px;max-width:100%;height:auto;margin:1.6rem 0 0}
+
+/* Gift Shop — a quiet, museum-inspired editorial space */
+main>article.gift-shop{max-width:none}
+.gift-shop{--shop-serif:Georgia,"Times New Roman",serif;--shop-warm:#e7e0d5}
+.shop-hero{display:grid;grid-template-columns:42% 58%;background:#22201d;color:#f8f5ee;overflow:hidden;align-items:stretch}
+.shop-hero-copy{padding:clamp(1.5rem,4vw,3rem);align-self:center;position:relative;z-index:1}
+.shop-kicker{font:.68rem/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase;margin:0;color:var(--red)}
+.shop-hero .shop-kicker{color:#f2e8dd;display:flex;align-items:center;gap:.8rem}
+.shop-hero .shop-kicker:after{content:"";width:40px;height:2px;background:#b21f2d}
+.shop-hero h1{font:400 clamp(2.5rem,5vw,4.2rem)/.98 var(--shop-serif);letter-spacing:-.045em;margin:1.15rem 0}
+.shop-hero-copy>p:last-child{font:400 1rem/1.6 var(--shop-serif);max-width:34ch;color:#e7ded2;margin-bottom:0}
+.shop-hero-art{display:flex;align-items:center;background:#282521;overflow:hidden}
+.shop-hero-art svg{display:block;width:100%;height:auto}
+.shop-introduction{display:grid;grid-template-columns:minmax(180px,28%) 1fr;gap:2rem;padding:2rem 0;align-items:center}
+.shop-introduction>div:first-child{border-right:1px solid var(--line);padding-right:1rem}
+.shop-japanese{font:400 1.65rem/1.5 serif;color:var(--red);margin:0 0 .3rem}
+.shop-story{font:400 1.13rem/1.6 var(--shop-serif);max-width:65ch}
+.shop-story p{margin:.4rem 0}
+.shop-collection{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;border-top:1px solid var(--line);padding-top:1.3rem}
+.shop-category{min-width:0}
+.shop-object{background:radial-gradient(ellipse at 45% 40%,#c9bdab,#766858);aspect-ratio:240/126;overflow:hidden;margin-bottom:1rem}
+.shop-object svg{display:block;width:100%;height:100%}
+.shop-object-models{background:radial-gradient(ellipse at 45% 40%,#a3998b,#514d45)}
+.shop-object-apparel{background:radial-gradient(ellipse at 45% 40%,#989089,#494440)}
+.shop-object-travel{background:radial-gradient(ellipse at 45% 40%,#81776b,#393531)}
+.shop-category h2{font:400 1.35rem/1.15 var(--shop-serif);margin:.5rem 0}
+.shop-category>p:last-child{font:.83rem/1.55 system-ui,sans-serif;color:var(--muted);margin:.5rem 0}
+.shop-note{border-top:1px solid var(--line);padding:1.3rem 0 0;margin-top:2rem;max-width:70ch}
+.shop-note>p:not(.shop-kicker){font:1.1rem/1.6 var(--shop-serif)}
+.shop-note a{font-size:.8rem}
+@media(max-width:760px){.shop-hero{grid-template-columns:1fr}.shop-hero-art{max-height:290px}.shop-hero-art svg{height:100%;max-height:290px}.shop-introduction{grid-template-columns:1fr;gap:.8rem;padding:1.5rem 0}.shop-introduction>div:first-child{border-right:0}.shop-collection{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem 1rem}}
+@media(max-width:380px){.shop-collection{grid-template-columns:1fr}}
