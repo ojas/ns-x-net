@@ -38,4 +38,10 @@ Use `NSX_R2_REMOTE`, `NSX_R2_BUCKET`, and `NSX_MEDIA_BASE` to override defaults.
 
 Workflow: immutable local master → local publication staging → rights/privacy review → dry run → upload and verify → Hugo metadata → Git commit → Vercel deployment. Avoid `rclone sync` against the public bucket: it may delete objects.
 
-The welcome experience, PDF pipeline, NSX Prime archive, and video preservation tooling are future migrations, not included in this bootstrap.
+## Owner welcome and announcements
+
+The owner introduction lives in `content/welcome/_index.md`; its curated community resources are maintained in `content/community/_index.md`. Both were migrated from the original V10 Zen NSX welcome page, preserving the author's wording and links.
+
+Edit `data/announcement.yaml` to manage the site-wide announcement. Set `enabled: false` to hide it. Changes take effect on the next Vercel deployment.
+
+The PDF pipeline, NSX Prime archive, and video preservation tooling are future migrations.
