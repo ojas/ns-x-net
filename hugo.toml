@@ -1,0 +1,6 @@
+baseURL = 'https://ns-x.net/'
+languageCode = 'en-us'
+title = 'NS-X.net'
+disableKinds = ['taxonomy', 'term']
+[markup.goldmark.renderer]
+unsafe = false
