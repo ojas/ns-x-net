@@ -13,7 +13,7 @@
     <a class="brand" href="{{ "/" | relURL }}" aria-label="NS-X.net home"><img class="brand-mark" src="{{ "images/nsx-logo.svg" | relURL }}" alt="" width="144" height="21"><span class="brand-text">NS-X.NET</span></a>
     <small>Honda / Acura<br>Independent archive</small>
   </div>
-  <nav aria-label="Main navigation">{{ $section := .Section }}{{ range site.Sections }}<a href="{{ .RelPermalink }}"{{ if eq .Section $section }} aria-current="true"{{ end }}>{{ .LinkTitle }}</a>{{ end }}</nav>
+  <nav aria-label="Main navigation">{{ $section := .Section }}{{ range site.Sections }}{{ if not .Params.unlisted }}<a href="{{ .RelPermalink }}"{{ if eq .Section $section }} aria-current="true"{{ end }}>{{ .LinkTitle }}</a>{{ end }}{{ end }}</nav>
 </header>
 {{ partial "announcement.html" . }}
 <main>{{ block "main" . }}{{ end }}</main>
