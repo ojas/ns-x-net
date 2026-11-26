@@ -15,6 +15,7 @@
   <img class="feature-image" src="{{ "wip-ojas-net-nsx/mirror/nsx-r/NSX-R/image/nsxr.jpg" | relURL }}" width="304" height="446" alt="NSX-R, from the Honda Worldwide website">
 </a>
 {{ end }}
-<div class="collection-heading"><h2>Explore the collection</h2><span class="index-label">Index / {{ printf "%02d" (len site.Sections) }}</span></div>
-<div class="sections">{{ range $i, $section := site.Sections }}<a href="{{ .RelPermalink }}"><span class="section-number">{{ printf "%02d" (add $i 1) }}</span><h3>{{ .Title }} <span aria-hidden="true">↗</span></h3><p>{{ .Description }}</p></a>{{ end }}</div>
+{{ $sections := slice }}{{ range site.Sections }}{{ if not .Params.unlisted }}{{ $sections = $sections | append . }}{{ end }}{{ end }}
+<div class="collection-heading"><h2>Explore the collection</h2><span class="index-label">Index / {{ printf "%02d" (len $sections) }}</span></div>
+<div class="sections">{{ range $i, $section := $sections }}<a href="{{ .RelPermalink }}"><span class="section-number">{{ printf "%02d" (add $i 1) }}</span><h3>{{ .Title }} <span aria-hidden="true">↗</span></h3><p>{{ .Description }}</p></a>{{ end }}</div>
 {{ end }}
